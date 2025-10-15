@@ -7,13 +7,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        . . . . . . . . f f . . . . . . 
-        . . . . . . . f 8 f . . . . . . 
-        . . . . . . f 8 f . . . . . . . 
-        . . . . . f 8 f . . . . . . . . 
-        . . . f f 8 f . . . . . . . . . 
-        . . . . e f . . . . . . . . . . 
-        . . . e . f . . . . . . . . . . 
+        . . . . . . . . . . . . . f f . 
+        . . . . . . . . . . . . f 8 f . 
+        . . . . . . . . . . . f 8 f . . 
+        . . . . . . . . . . f 8 f . . . 
+        . . . . . . . . f f 8 f . . . . 
+        . . . . . . . . . e f . . . . . 
+        . . . . . . . . e . f . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -26,13 +26,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        . . e . f . . . . . . . . . . . 
-        . . . e f . . . . . . . . . . . 
-        . . f f 8 f . . . . . . . . . . 
-        . . . . f 8 f . . . . . . . . . 
-        . . . . . f 8 f . . . . . . . . 
-        . . . . . . f 8 f . . . . . . . 
-        . . . . . . . f f . . . . . . . 
+        . . . . . . . . e . f . . . . . 
+        . . . . . . . . . e f . . . . . 
+        . . . . . . . . f f 8 f . . . . 
+        . . . . . . . . . . f 8 f . . . 
+        . . . . . . . . . . . f 8 f . . 
+        . . . . . . . . . . . . f 8 f . 
+        . . . . . . . . . . . . . f f . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -42,11 +42,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        . . f . . . . . . . . . . . . . 
-        . . . f f f f f . . . . . . . . 
-        . e e f 8 8 8 8 f . . . . . . . 
-        . . . f f f f f . . . . . . . . 
-        . . f . . . . . . . . . . . . . 
+        . . . . . . . . . f . . . . . . 
+        . . . . . . . . . . f f f f f . 
+        . . . . . . . . e e f 8 8 8 8 f 
+        . . . . . . . . . . f f f f f . 
+        . . . . . . . . . f . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -62,12 +62,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     pause(100)
     sprites.destroy(sword)
     controller.moveSprite(mySprite)
-})
-sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Projectile, function (sprite, otherSprite) {
-    sprites.destroy(myEnemy)
-    game.gameOver(true)
-    game.setGameOverMessage(true, "YOU JUST WON! CONGRATULATIONS!")
-    game.setGameOverEffect(true, effects.confetti)
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     sprites.destroy(mySprite)
@@ -150,6 +144,12 @@ sprites.onCreated(SpriteKind.Player, function (sprite) {
     500,
     characterAnimations.rule(Predicate.Moving)
     )
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprites.destroy(myEnemy)
+    game.gameOver(true)
+    game.setGameOverMessage(true, "YOU JUST WON! CONGRATULATIONS!")
+    game.setGameOverEffect(true, effects.confetti)
 })
 let sword: Sprite = null
 let myEnemy: Sprite = null
@@ -278,10 +278,10 @@ scene.setBackgroundImage(img`
     ................................................................................................................................................................
     `)
 mySprite = sprites.create(assets.image`myImage`, SpriteKind.Player)
-tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 37))
+tiles.placeOnTile(mySprite, tiles.getTileLocation(11, 35))
 myEnemy = sprites.create(assets.image`myImage0`, SpriteKind.Enemy)
+tiles.placeOnTile(myEnemy, tiles.getTileLocation(1, 37))
 let myDart = 0
-myEnemy.setPosition(14, 17)
 scene.cameraFollowSprite(mySprite)
 let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 statusbar.attachToSprite(myEnemy)
